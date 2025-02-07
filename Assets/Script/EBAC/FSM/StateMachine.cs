@@ -3,54 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
-public class StateMachine : MonoBehaviour
+
+public class Test
 {
-    public enum States
+    public enum Test2
     {
         NONE
     }
 
-    public Dictionary<States, StateBase> dictionaryState;
+    public void Aa()
+    {
+        StateMachine<Test2> stateMachine = new StateMachine<Test2>();
+
+        stateMachine.RegisterStates(Test.Test2.NONE, new StateBase());
+    }
+}
+
+public class StateMachine<T> where T : System.Enum
+{
+
+    public Dictionary<T, StateBase> dictionaryState;
 
     private StateBase _currentState;
     public float timeToStartGame = 1f;
 
-    private void Awake()
+    public StateBase CurrentState
     {
-        dictionaryState = new Dictionary<States, StateBase>();
-        dictionaryState.Add(States.NONE, new StateBase());
-
-        SwitchState(States.NONE);
-
-        Invoke(nameof(StartGame), timeToStartGame);
+        get { return _currentState; }
     }
 
-    [Button]
-    private void StartGame()
+    public void Init()
     {
-        SwitchState(States.NONE);
+        dictionaryState = new Dictionary<T, StateBase>();
     }
 
-#if UNITY_EDITOR
-    #region DEBUG
-
-    [Button]
-    private void ChangeStateToStateX()
+    public void RegisterStates(T typeEnum, StateBase state)
     {
-        SwitchState(States.NONE);
+        dictionaryState.Add(typeEnum, state);
     }
 
-    [Button]
-    private void ChangeStateToStateY()
-    {
-        SwitchState(States.NONE);
-    }
-
-    #endregion
-#endif
-
-    [Button]
-    private void SwitchState(States state)
+    public void SwitchState(T state)
     {
         if (_currentState != null) _currentState.OnStateExit();
 
@@ -60,13 +52,8 @@ public class StateMachine : MonoBehaviour
     }
 
 
-    void Update()
+    public void Update()
     {
         if (_currentState != null) _currentState.OnStateStay();
-
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            //SwitchState(States.DEAD);
-        } 
     }
 }
