@@ -2,20 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateBase
+namespace Ebac.StateMachine
 {
-    public virtual void OnStateEnter(object o = null)
+    public class StateBase
     {
-        Debug.Log("OnStateEnter");
+        public virtual void OnStateEnter(object o = null)
+        {
+            Debug.Log("OnStateEnter");
+        }
+
+        public virtual void OnStateStay()
+        {
+            Debug.Log("OnStateStay");
+        }
+
+        public virtual void OnStateExit()
+        {
+            Debug.Log("OnStateExit");
+        }
     }
 
-    public virtual void OnStateStay()
+    public class StateJump : StateBase
     {
-        Debug.Log("OnStateStay");
-    }
+        public PlayerController playerController;
 
-    public virtual void OnStateExit()
-    {
-        Debug.Log("OnStateExit");
+        public override void OnStateEnter(object o = null)
+        {
+            playerController = (PlayerController)o;
+            playerController.canJump = false;
+            playerController.canMove = false;
+
+            base.OnStateEnter(o);
+        }
+
+        public override void OnStateExit()
+        {
+            playerController.canMove = true;
+            playerController.canJump = true;
+
+            base.OnStateExit();
+        }
     }
 }
