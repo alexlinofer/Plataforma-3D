@@ -29,13 +29,13 @@ namespace Ebac.StateMachine
             dictionaryState.Add(typeEnum, state);
         }
 
-        public void SwitchState(T state, PlayerController playerController = null)
+        public void SwitchState(T state)
         {
             if (_currentState != null) _currentState.OnStateExit();
 
             _currentState = dictionaryState[state];
 
-            _currentState.OnStateEnter(playerController);
+            _currentState.OnStateEnter();
         }
 
 

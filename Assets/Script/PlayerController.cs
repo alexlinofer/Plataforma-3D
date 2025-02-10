@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("should have jumped");
 
         // Alterna para o estado JUMP
-        GameManager.Instance.stateMachine.SwitchState(GameManager.GameStates.JUMP, this);
+        //GameManager.Instance.stateMachine.SwitchState(GameManager.GameStates.JUMP);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
 
             // Volta ao estado GAMEPLAY ao tocar o chão
-            GameManager.Instance.stateMachine.SwitchState(GameManager.GameStates.GAMEPLAY, this);
+            GameManager.Instance.stateMachine.SwitchState(GameManager.GameStates.GAMEPLAY);
         }
     }
 }

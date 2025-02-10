@@ -23,7 +23,7 @@ namespace Ebac.StateMachine
         }
     }
 
-    public class StateJump : StateBase
+    /*public class StateJump : StateBase
     {
         public  PlayerController playerController;
 
@@ -79,7 +79,7 @@ namespace Ebac.StateMachine
             }
 
         }
-    }
+    }*/
 
 
 }
