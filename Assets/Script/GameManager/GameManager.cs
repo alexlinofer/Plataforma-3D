@@ -16,7 +16,6 @@ public class GameManager : Singleton<GameManager>
     }
 
     public StateMachine<GameStates> stateMachine;
-    public PlayerController playerController;
 
     public void Start()
     {
