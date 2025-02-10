@@ -5,14 +5,26 @@ using JogoPlataforma3D.Singleton;
 
 public class Player : MonoBehaviour
 {
+    [Header("Configs")]
     public CharacterController characterController;
+    public Animator animator;
+
+    [Header("General Setup")]
     public float speed = 1f;
     public float turnSpeed = 1f;
     public float gravity = -9.8f;
+    public float jumpSpeed = 15f;
+    public KeyCode jumpKeyCode = KeyCode.Space;
+
+    [Header("Run Setup")]
+    public KeyCode keyRun = KeyCode.LeftShift;
+    public float speedRun = 1.5f;
+
+
 
     private float vSpeed = 0f;
 
-    public Animator animator;
+
 
 
     private void Update()
@@ -22,19 +34,35 @@ public class Player : MonoBehaviour
         var inputAxisVertical = Input.GetAxis("Vertical");
         var speedVector = transform.forward * inputAxisVertical * speed;
 
-        vSpeed = gravity * Time.deltaTime;
+        if (characterController.isGrounded)
+        {
+            vSpeed = 0f;
+            if (Input.GetKeyDown(jumpKeyCode))
+            {
+                vSpeed = jumpSpeed;
+            }
+        }
+
+        vSpeed -= gravity * Time.deltaTime;
         speedVector.y = vSpeed;
+
+        var isWalking = inputAxisVertical != 0;
+        if (isWalking)
+        {
+            if (Input.GetKey(keyRun))
+            {
+                speedVector *= speedRun;
+                animator.speed = speedRun;
+            }
+            else
+            {
+                animator.speed = 1;
+            }
+        }
 
         characterController.Move(speedVector * Time.deltaTime);
 
-        if(inputAxisVertical != 0)
-        {
-            animator.SetBool("Run", true);
-        }
-        else
-        {
-            animator.SetBool("Run", false);
-        }
+        animator.SetBool("Run", inputAxisVertical != 0);
     }
 
 }
