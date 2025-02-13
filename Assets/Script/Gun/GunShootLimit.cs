@@ -11,7 +11,7 @@ public class GunShootLimit : GunBase
 
     private bool _recharging = false;
 
-    protected override IEnumerator SHootCoroutine()
+    protected override IEnumerator ShootCoroutine()
     {
 
         if (_recharging) yield break;
