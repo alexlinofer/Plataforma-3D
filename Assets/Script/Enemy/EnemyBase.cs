@@ -3,37 +3,58 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour
+
+namespace Enemy
 {
-    public int damage = 10;
-
-    public Animator animator;
-    public string triggerAttack = "Attack";
-
-    public HealthBase healthBase;
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public class EnemyBase : MonoBehaviour
     {
-        Debug.Log(collision.transform.name);
+        public float startLife = 10f;
 
-        var health = collision.gameObject.GetComponent<HealthBase>();
+        [SerializeField] private float _currentLife;
 
-        if(health != null)
+        private void Awake()
         {
-            health.Damage(damage);
-            PlayAttackAnimation();
+            Init();
         }
+
+        protected void ResetLife()
+        {
+            _currentLife = startLife;
+        }
+
+
+        protected virtual void Init()
+        {
+            ResetLife();
+        }
+
+        protected virtual void Kill()
+        {
+            OnKill();
+        }
+
+        protected virtual void OnKill()
+        {
+            Destroy(gameObject);
+        }
+
+        public void OnDamage(float f)
+        {
+            _currentLife -= f;
+
+            if(_currentLife <= 0)
+            {
+                Kill();
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                OnDamage(5f);
+            }
+        }
+
     }
-
-    private void PlayAttackAnimation()
-    {
-        animator.SetTrigger(triggerAttack);
-    }
-
-    public void Damage(int amount)
-    {
-        healthBase.Damage(amount);
-    }
-
-
 }
