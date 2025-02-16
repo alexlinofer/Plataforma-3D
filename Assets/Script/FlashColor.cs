@@ -6,34 +6,25 @@ using DG.Tweening;
 
 public class FlashColor : MonoBehaviour
 {
-    public List<SpriteRenderer> spriteRenderers;
+    public MeshRenderer meshRenderer;
+
+    [Header("Setup")]
     public Color color = Color.red;
     public float duration = .1f;
+    private Color defaultColor;
 
     private Tween _currentTween;
 
-    private void OnValidate()
+    private void Start()
     {
-        spriteRenderers = new List<SpriteRenderer>();
-        foreach (var child in transform.GetComponentsInChildren<SpriteRenderer>())
-        {
-            spriteRenderers.Add(child);
-        }
+        defaultColor = meshRenderer.material.GetColor("_EmissionColor");
     }
 
+    [NaughtyAttributes.Button]
     public void Flash()
     {
-        if(_currentTween != null)
-        {
-            _currentTween.Kill();
-            spriteRenderers.ForEach(i => i.color = Color.white);
-        }
-
-        foreach(var s in spriteRenderers)
-        {
-            _currentTween = s.DOColor(color, duration).SetLoops(2, LoopType.Yoyo);
-        }
+        if(!_currentTween.IsActive())
+        _currentTween = meshRenderer.material.DOColor(color, "_EmissionColor", duration).SetLoops(2, LoopType.Yoyo);
     }
-
 
 }
