@@ -2,8 +2,9 @@ using System.Collections;
 using UnityEngine;
 using Ebac.StateMachine;
 using JogoPlataforma3D.Singleton;
+using System.Collections.Generic;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [Header("Configs")]
     public CharacterController characterController;
@@ -20,12 +21,23 @@ public class Player : MonoBehaviour
     public KeyCode keyRun = KeyCode.LeftShift;
     public float speedRun = 1.5f;
 
-
-
     private float vSpeed = 0f;
 
+    [Header("Flash")]
+    public List<FlashColor> flashColors;
 
 
+# region LIFE
+    public void Damage(float damage)
+    {
+        flashColors.ForEach(i => i.Flash());
+    }
+
+    public void Damage(float damage, Vector3 dir)
+    {
+        Damage(damage);
+    }
+#endregion
 
     private void Update()
     {

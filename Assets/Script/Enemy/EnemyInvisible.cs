@@ -1,46 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Enemy;
 
-public class EnemyInvisible : EnemyBase
+
+namespace Enemy
 {
-    public MeshRenderer meshRenderer;
-    public BoxCollider boxCollider;
-
-    private void Start()
+    public class EnemyInvisible : EnemyBase
     {
-        SetAlpha(0f);
-        boxCollider.enabled = false;
-    }
+        public MeshRenderer meshRenderer;
+        public BoxCollider boxCollider;
 
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        public override void Start()
         {
-            SetAlpha(1f); // Torna visível
-            boxCollider.enabled = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            SetAlpha(0f); // Torna invisível
+            base.Start();
+            SetAlpha(0f);
             boxCollider.enabled = false;
         }
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                SetAlpha(1f); // Torna visível
+                boxCollider.enabled = true;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                SetAlpha(0f); // Torna invisível
+                boxCollider.enabled = false;
+            }
+        }
+
+        private void SetAlpha(float alpha)
+        {
+            Color newColor = meshRenderer.material.color; // Obtém a cor atual
+            newColor.a = alpha; // Modifica apenas o Alpha
+            meshRenderer.material.color = newColor; // Aplica a nova cor
+
+            // Se o material usa transparência via shader
+            meshRenderer.material.SetFloat("_Mode", 3); // Define como transparente no Standard Shader
+        }
     }
-
-    private void SetAlpha(float alpha)
-    {
-        Color newColor = meshRenderer.material.color; // Obtém a cor atual
-        newColor.a = alpha; // Modifica apenas o Alpha
-        meshRenderer.material.color = newColor; // Aplica a nova cor
-
-        // Se o material usa transparência via shader
-        meshRenderer.material.SetFloat("_Mode", 3); // Define como transparente no Standard Shader
-    }
-
 }

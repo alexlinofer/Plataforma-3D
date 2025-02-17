@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 5144924261696689607}
-  color: {r: 0.018116832, g: 1, b: 0, a: 1}
+  color: {r: 0.345098, g: 0.8980392, b: 0.65909076, a: 1}
   duration: 0.1
 --- !u!1 &7021026784645575610
 GameObject:

@@ -37,7 +37,7 @@ public class GunShootLimit : GunBase
         }
     }
 
-    private void CheckRecharge()
+    public void CheckRecharge()
     {
         if (_currentShoots >= maxShoot)
         {
@@ -46,7 +46,7 @@ public class GunShootLimit : GunBase
         }
     }
 
-    private void StartRecharge()
+    public void StartRecharge()
     {
         _recharging = true;
         StartCoroutine(RechargeCoroutine());

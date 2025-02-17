@@ -10,10 +10,13 @@ namespace Enemy
 {
     public class EnemyBase : MonoBehaviour, IDamageable
     {
+        private Player _player;
+
         public Collider collider;
         public FlashColor flashColor;
         public ParticleSystem particleSystem;
         public float startLife = 10f;
+        public bool lookAtPlayer = false;
 
         [SerializeField] private float _currentLife;
 
@@ -30,11 +33,15 @@ namespace Enemy
             Init();
         }
 
+        public virtual void Start ()
+        {
+            _player = GameObject.FindObjectOfType<Player>();
+        }
+
         protected void ResetLife()
         {
             _currentLife = startLife;
         }
-
 
         protected virtual void Init()
         {
@@ -61,6 +68,8 @@ namespace Enemy
             if (flashColor != null) flashColor.Flash();
             if (particleSystem != null) particleSystem.Emit(20);
 
+            transform.position -= transform.forward;
+
             _currentLife -= f;
 
             if(_currentLife <= 0)
@@ -68,7 +77,6 @@ namespace Enemy
                 Kill();
             }
         }
-
 
         #region ANIMATION
         private void BornAnimation()
@@ -83,20 +91,36 @@ namespace Enemy
 
         #endregion
 
-
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                OnDamage(5f);
-            }
-        }
-
         public void Damage(float damage)
         {
             Debug.Log("Damage");
             OnDamage(damage);
+        }
+
+        public void Damage(float damage, Vector3 dir)
+        {
+            OnDamage(damage);
+            transform.DOMove(transform.position - dir, .1f);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Player p = collision.transform.GetComponent<Player>();
+
+            if(p != null)
+            {
+                p.Damage(1);
+
+                Debug.Log("Colision");
+            }
+        }
+
+        public virtual void Update()
+        {
+            if (lookAtPlayer)
+            {
+                transform.LookAt(_player.transform.position);
+            }
         }
     }
 }
