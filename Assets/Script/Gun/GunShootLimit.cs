@@ -58,7 +58,6 @@ public class GunShootLimit : GunBase
         while(time < timeToRecharge)
         {
             time += Time.deltaTime;
-            Debug.Log("Recharging: " + time);
             uIGunUpdaters.ForEach(i => i.UpdateValue(time/timeToRecharge));
             yield return new WaitForEndOfFrame();
         }

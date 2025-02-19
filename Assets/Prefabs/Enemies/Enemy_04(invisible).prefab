@@ -53,13 +53,14 @@ MonoBehaviour:
   collider: {fileID: 3831312648165491920}
   flashColor: {fileID: 659843453923605573}
   particleSystem: {fileID: 7651176189332679462}
-  startLife: 15
+  startLife: 10
   lookAtPlayer: 1
   _currentLife: 0
   _animationBase: {fileID: 5001681904248421566}
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
+  isAlive: 1
   meshRenderer: {fileID: 7605768575189759108}
   boxCollider: {fileID: 3831312648165491920}
 --- !u!114 &5001681904248421566

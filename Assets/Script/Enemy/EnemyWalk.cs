@@ -20,6 +20,8 @@ namespace Enemy
 
         public override void Update()
         {
+            if(!isAlive) return;
+
             if (Vector3.Distance(transform.position, waypoints[_index].transform.position) < minDistance)
             {
                 _index++;

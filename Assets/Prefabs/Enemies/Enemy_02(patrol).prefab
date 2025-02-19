@@ -510,13 +510,14 @@ MonoBehaviour:
   collider: {fileID: 7491575093399695623}
   flashColor: {fileID: 3334172422892440714}
   particleSystem: {fileID: 1528655687996853154}
-  startLife: 10
+  startLife: 15
   lookAtPlayer: 0
   _currentLife: 0
   _animationBase: {fileID: 8197808504911763518}
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
+  isAlive: 1
   waypoints: []
   minDistance: 1
   speed: 4

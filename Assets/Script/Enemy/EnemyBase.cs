@@ -28,6 +28,8 @@ namespace Enemy
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
 
+        public bool isAlive = true;
+
         private void Awake()
         {
             Init();
@@ -61,6 +63,7 @@ namespace Enemy
             if (collider != null) collider.enabled = false;
             PlayAnimationByTrigger(AnimationType.DEATH);
             Destroy(gameObject, 3f);
+            isAlive = false;
         }
 
         public void OnDamage(float f)
@@ -111,13 +114,13 @@ namespace Enemy
             {
                 p.Damage(1);
 
-                Debug.Log("Colision");
+                Debug.Log("Collision");
             }
         }
 
         public virtual void Update()
         {
-            if (lookAtPlayer)
+            if (lookAtPlayer && isAlive)
             {
                 transform.LookAt(_player.transform.position);
             }

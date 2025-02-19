@@ -14,5 +14,15 @@ namespace Enemy
             base.Init();
             gunBase.StartShoot();
         }
+
+        public override void Update()
+        {
+
+            base.Update();
+            if (!isAlive)
+            {
+                gunBase.StopShoot();
+            }
+        }
     }
 }

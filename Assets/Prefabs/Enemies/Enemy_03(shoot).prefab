@@ -100,13 +100,14 @@ MonoBehaviour:
   collider: {fileID: 2368725922595448161}
   flashColor: {fileID: 26896071129360791}
   particleSystem: {fileID: 8371989553615132145}
-  startLife: 25
+  startLife: 20
   lookAtPlayer: 1
   _currentLife: 0
   _animationBase: {fileID: 3254970061038876271}
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
+  isAlive: 1
   gunBase: {fileID: 8353049969672929598}
 --- !u!114 &3254970061038876271
 MonoBehaviour:
