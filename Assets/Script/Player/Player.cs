@@ -4,7 +4,7 @@ using Ebac.StateMachine;
 using JogoPlataforma3D.Singleton;
 using System.Collections.Generic;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour//, IDamageable
 {
     [Header("Configs")]
     public CharacterController characterController;
@@ -26,16 +26,30 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Flash")]
     public List<FlashColor> flashColors;
 
+    public HealthBase healthBase;
 
-# region LIFE
-    public void Damage(float damage)
+    private void OnValidate()
+    {
+        if(healthBase == null) healthBase = GetComponent<HealthBase>();
+    }
+
+    private void Awake()
+    {
+        OnValidate();
+
+        healthBase.OnDamage += Damage;
+    }
+
+
+    #region LIFE
+    public void Damage(HealthBase h)
     {
         flashColors.ForEach(i => i.Flash());
     }
 
     public void Damage(float damage, Vector3 dir)
     {
-        Damage(damage);
+        //Damage(damage);
     }
 #endregion
 

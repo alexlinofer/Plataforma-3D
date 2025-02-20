@@ -5575,6 +5575,7 @@ GameObject:
   - component: {fileID: 931800264}
   - component: {fileID: 931800267}
   - component: {fileID: 931800268}
+  - component: {fileID: 931800269}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5632,6 +5633,7 @@ MonoBehaviour:
   flashColors:
   - {fileID: 1693492194}
   - {fileID: 2059242270}
+  healthBase: {fileID: 931800269}
 --- !u!4 &931800266
 Transform:
   m_ObjectHideFlags: 0
@@ -5689,6 +5691,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 3, z: 2}
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &931800269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931800263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a361f72345ade4d88f197f396e11f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startLife: 5
+  destroyOnKill: 0
+  _currentLife: 0
 --- !u!1 &937153301
 GameObject:
   m_ObjectHideFlags: 3

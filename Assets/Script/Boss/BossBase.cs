@@ -42,9 +42,15 @@ namespace Boss
 
         private StateMachine<BossAction> stateMachine;
 
+        private void OnValidate()
+        {
+            if (healthBase == null) healthBase = GetComponent<HealthBase>();
+        }
+
         private void Awake()
         {
             Init();
+            OnValidate();
             healthBase.OnKill += OnBossKill;
         }
 
@@ -75,7 +81,7 @@ namespace Boss
 
             if (p != null)
             {
-                p.Damage(1);
+                p.healthBase.Damage(1);
 
                 Debug.Log("Collision");
             }
