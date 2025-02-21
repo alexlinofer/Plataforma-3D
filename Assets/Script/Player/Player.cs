@@ -31,7 +31,7 @@ public class Player : MonoBehaviour//, IDamageable
     [Header("Life")]
     public HealthBase healthBase;
     public UIFillUpdate uiGunUpdater;
-    private bool _alive = true;
+    public bool alive = true;
 
 
 
@@ -50,9 +50,9 @@ public class Player : MonoBehaviour//, IDamageable
 
     private void OnKill(HealthBase h)
     {
-        if (_alive)
+        if (alive)
         {
-            _alive = false;
+            alive = false;
             animator.SetTrigger("Death");
             colliders.ForEach(i => i.enabled = false);
 
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour//, IDamageable
 
     private void Revive()
     {
-        _alive = true;
+        alive = true;
         healthBase.ResetLife();
         animator.SetTrigger("Revive");
         Respawn();
@@ -75,6 +75,7 @@ public class Player : MonoBehaviour//, IDamageable
     {
         flashColors.ForEach(i => i.Flash());
         EffectsManager.Instance.ChangeVignette();
+        ShakeCamera.Instance.Shake();
     }
 
     public void Damage(float damage, Vector3 dir)
@@ -86,7 +87,7 @@ public class Player : MonoBehaviour//, IDamageable
     private void Update()
     {
 
-        if(!_alive) return;
+        if(!alive) return;
 
         transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);
 
