@@ -3,6 +3,7 @@ using UnityEngine;
 using Ebac.StateMachine;
 using JogoPlataforma3D.Singleton;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour//, IDamageable
 {
@@ -83,6 +84,9 @@ public class Player : MonoBehaviour//, IDamageable
 
     private void Update()
     {
+
+        if(!_alive) return;
+
         transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);
 
         var inputAxisVertical = Input.GetAxis("Vertical");

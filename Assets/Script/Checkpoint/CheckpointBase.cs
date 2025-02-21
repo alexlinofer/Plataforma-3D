@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+using TMPro;
 
 public class CheckpointBase : MonoBehaviour
 {
     public MeshRenderer meshRenderer;
     public int key = 01;
+    public Image image;
+    public TextMeshProUGUI text;
 
     private bool checkpointActivated = false;
     private string checkpointKey = "CheckpointKey";
@@ -38,11 +43,23 @@ public class CheckpointBase : MonoBehaviour
 
     private void SaveCheckpoint()
     {
-        /*if(PlayerPrefs.GetInt(checkpointKey, 0) < key)
-            PlayerPrefs.SetInt(checkpointKey, key);*/
-
         CheckpointManager.Instance.SaveCheckpoint(key);
 
         checkpointActivated = true;
+        CheckpointOnText();
+    }
+
+    private void CheckpointOnText()
+    {
+        image.DOFade(1f, 2f);
+        text.DOFade(1f, 2f);
+        StartCoroutine(CheckpointOffText());
+    }
+
+    IEnumerator CheckpointOffText()
+    {
+        yield return new WaitForSeconds(2f);
+        image.DOFade(0f, 2f);
+        text.DOFade(0, 2f);
     }
 }
