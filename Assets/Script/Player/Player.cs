@@ -56,7 +56,7 @@ public class Player : MonoBehaviour//, IDamageable
             animator.SetTrigger("Death");
             colliders.ForEach(i => i.enabled = false);
 
-            Invoke(nameof(Revive), 3f);
+            Invoke(nameof(Revive), 5f);
 
         }
     }
@@ -74,6 +74,7 @@ public class Player : MonoBehaviour//, IDamageable
     public void Damage(HealthBase h)
     {
         flashColors.ForEach(i => i.Flash());
+        EffectsManager.Instance.ChangeVignette();
     }
 
     public void Damage(float damage, Vector3 dir)

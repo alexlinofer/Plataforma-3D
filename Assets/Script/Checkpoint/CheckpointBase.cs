@@ -11,6 +11,7 @@ public class CheckpointBase : MonoBehaviour
     public int key = 01;
     public Image image;
     public TextMeshProUGUI text;
+    public float checkpointBrightness = 2f;
 
     private bool checkpointActivated = false;
     private string checkpointKey = "CheckpointKey";
@@ -32,13 +33,25 @@ public class CheckpointBase : MonoBehaviour
     [NaughtyAttributes.Button]
     private void TurnItOn()
     {
-        meshRenderer.material.SetColor("_EmissionColor", Color.white);
+        Color emissionColor = meshRenderer.material.GetColor("_EmissionColor");
+
+        emissionColor = Color.white;
+        emissionColor *= checkpointBrightness;
+        meshRenderer.material.SetColor("_EmissionColor", emissionColor);
+
+        //meshRenderer.material.SetColor("_EmissionColor", Color.white);
     }
 
     [NaughtyAttributes.Button]
     private void TurnItOff()
     {
-        meshRenderer.material.SetColor("_EmissionColor", Color.grey);
+        Color emissionColor = meshRenderer.material.GetColor("_EmissionColor");
+
+        emissionColor = Color.grey;
+        meshRenderer.material.SetColor("_EmissionColor", emissionColor);
+
+
+        //meshRenderer.material.SetColor("_EmissionColor", Color.grey);
     }
 
     private void SaveCheckpoint()
