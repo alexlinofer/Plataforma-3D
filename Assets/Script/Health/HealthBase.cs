@@ -18,6 +18,8 @@ public class HealthBase : MonoBehaviour, IDamageable
     private FlashColor _flashColor;
     private ParticleSystem _particleSystem;
 
+    public List<UIFillUpdate> uiGunUpdater;
+
 
     private void Awake()
     {
@@ -36,7 +38,7 @@ public class HealthBase : MonoBehaviour, IDamageable
     }
 
 
-    protected void ResetLife()
+    public void ResetLife()
     {
         _currentLife = startLife;
     }
@@ -50,7 +52,7 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     System.Collections.IEnumerator WaitForKill()
     {
-        destroyOnKill = true;
+        //destroyOnKill = true;
         yield return new WaitForEndOfFrame();
         Kill();
     }
@@ -69,6 +71,7 @@ public class HealthBase : MonoBehaviour, IDamageable
         {
             Kill();
         }
+        UpdateUI();
         OnDamage?.Invoke(this);
     }
 
@@ -88,6 +91,15 @@ public class HealthBase : MonoBehaviour, IDamageable
         {
             StartCoroutine(WaitForKill());
         }
+        UpdateUI();
         OnDamage?.Invoke(this);
+    }
+
+    private void UpdateUI()
+    {
+        if(uiGunUpdater != null)
+        {
+            uiGunUpdater.ForEach(i => i.UpdateValue((float)_currentLife / startLife));
+        }
     }
 }

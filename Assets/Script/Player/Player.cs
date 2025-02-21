@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour//, IDamageable
 {
+    public List<Collider> colliders;
     [Header("Configs")]
     public CharacterController characterController;
     public Animator animator;
@@ -26,7 +27,12 @@ public class Player : MonoBehaviour//, IDamageable
     [Header("Flash")]
     public List<FlashColor> flashColors;
 
+    [Header("Life")]
     public HealthBase healthBase;
+    public UIFillUpdate uiGunUpdater;
+    private bool _alive = true;
+
+
 
     private void OnValidate()
     {
@@ -38,8 +44,30 @@ public class Player : MonoBehaviour//, IDamageable
         OnValidate();
 
         healthBase.OnDamage += Damage;
+        healthBase.OnKill += OnKill;
     }
 
+    private void OnKill(HealthBase h)
+    {
+        if (_alive)
+        {
+            _alive = false;
+            animator.SetTrigger("Death");
+            colliders.ForEach(i => i.enabled = false);
+
+            Invoke(nameof(Revive), 3f);
+
+        }
+    }
+
+    private void Revive()
+    {
+        _alive = true;
+        healthBase.ResetLife();
+        animator.SetTrigger("Revive");
+        Respawn();
+        colliders.ForEach(i => i.enabled = true);
+    }
 
     #region LIFE
     public void Damage(HealthBase h)
@@ -89,6 +117,15 @@ public class Player : MonoBehaviour//, IDamageable
         characterController.Move(speedVector * Time.deltaTime);
 
         animator.SetBool("Run", inputAxisVertical != 0);
+    }
+
+    [NaughtyAttributes.Button]
+    public void Respawn()
+    {
+        if (CheckpointManager.Instance.HasCheckpoint())
+        {
+            transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
+        }
     }
 
 }
