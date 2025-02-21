@@ -65,14 +65,14 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     public void Damage(float f)
     {
-        _currentLife -= f;
+       /* _currentLife -= f;
 
         if(_currentLife <= 0)
         {
             Kill();
         }
         UpdateUI();
-        OnDamage?.Invoke(this);
+        OnDamage?.Invoke(this); */
     }
 
     public void Damage(float damage, Vector3 dir)
