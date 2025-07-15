@@ -51,5 +51,16 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
-   
+
+    public void DecreaseCollectableCount()
+    {
+        /*_collectableCount--;
+        Debug.Log("Collectable count decreased: " + _collectableCount);
+        if (_collectableCount == 0)
+        {
+            Debug.Log("All collectables collected, calling end game.");
+            CallEndgame();
+        }*/
+    }
+
 }
