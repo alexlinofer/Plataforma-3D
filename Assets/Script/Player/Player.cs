@@ -1,11 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using Ebac.StateMachine;
-using JogoPlataforma3D.Singleton;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using JogoPlataforma3D.Singleton;
 
-public class Player : MonoBehaviour//, IDamageable
+public class Player : Singleton<Player>//, IDamageable
 {
     public List<Collider> colliders;
     [Header("Configs")]
@@ -40,8 +39,9 @@ public class Player : MonoBehaviour//, IDamageable
         if(healthBase == null) healthBase = GetComponent<HealthBase>();
     }
 
-    private void Awake()
+    override protected void Awake()
     {
+        base.Awake();
         OnValidate();
 
         healthBase.OnDamage += Damage;
