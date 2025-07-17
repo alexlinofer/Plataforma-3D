@@ -11,6 +11,7 @@ public class DestructableItemBase : MonoBehaviour
 
     public int dropCoinsAmount = 10;
     public GameObject coinPrefab;
+    public Transform dropPosition;
 
     private void Awake()
     {
@@ -26,13 +27,29 @@ public class DestructableItemBase : MonoBehaviour
     private void OnDamage(HealthBase h)
     {
         transform.DOShakeScale(shakeDuration, Vector3.up/2, shakeForce);
-        DropCoins();
+        DropGroupOfCoins();
     }
 
     [NaughtyAttributes.Button]
     private void DropCoins()
     {
         var i = Instantiate(coinPrefab);
-        i.transform.position = transform.position;
+        i.transform.position = dropPosition.position;
+        i.transform.DOScale(0, .2f).SetEase(Ease.OutBack).From();
+    }
+
+    [NaughtyAttributes.Button]
+    private void DropGroupOfCoins()
+    {
+        StartCoroutine(DropGroupOfCoinsCoroutine());
+    }
+
+    IEnumerator DropGroupOfCoinsCoroutine()
+    {
+        for (int i = 0; i < dropCoinsAmount; i++)
+        {
+            DropCoins();
+            yield return new WaitForSeconds(.05f);
+        }
     }
 }
