@@ -5,8 +5,6 @@ using DG.Tweening;
 
 public class HealthBase : MonoBehaviour, IDamageable
 {
-    // IDamageable adicionado por mim
-
     public float startLife = 30f;
     public bool destroyOnKill = false;
     [SerializeField] private float _currentLife;
@@ -66,14 +64,14 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     public void Damage(float f)
     {
-       /* _currentLife -= f;
+       _currentLife -= f;
 
         if(_currentLife <= 0)
         {
             Kill();
         }
         UpdateUI();
-        OnDamage?.Invoke(this); */
+        OnDamage?.Invoke(this);
     }
 
     public void Damage(float damage, Vector3 dir)
