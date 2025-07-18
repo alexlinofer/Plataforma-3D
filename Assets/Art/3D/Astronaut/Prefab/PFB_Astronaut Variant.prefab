@@ -105,9 +105,34 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7966699243813953692}
   m_SourcePrefab: {fileID: 100100000, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+--- !u!137 &1457627758691751718 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3152957392515709016, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+  m_PrefabInstance: {fileID: 4613086030138626190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &1691330199028169570 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -2919398434156041236, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+  m_PrefabInstance: {fileID: 4613086030138626190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &2079064781320225913 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2531397741055781641, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+  m_PrefabInstance: {fileID: 4613086030138626190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3716322469661451159 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8329406226664518425, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+  m_PrefabInstance: {fileID: 4613086030138626190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4280930380576271169 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -329868665357337649, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+  m_PrefabInstance: {fileID: 4613086030138626190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5101685117535062625 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8734684370047477009, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
   m_PrefabInstance: {fileID: 4613086030138626190}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5531986718136724959 stripped
@@ -148,7 +173,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a66f8e29fe5f88949b88616847e83070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 8517986018976716636}
+  meshes:
+  - {fileID: 8517986018976716636}
+  - {fileID: 3716322469661451159}
+  - {fileID: 1457627758691751718}
+  - {fileID: 1691330199028169570}
+  - {fileID: 2079064781320225913}
+  - {fileID: 4280930380576271169}
+  - {fileID: 5101685117535062625}
   texture: {fileID: 2800000, guid: 8d0f7b33a4f3bf5459574270675b2718, type: 3}
   shaderIdName: _EmissionMap
 --- !u!1 &6042633999524273919 stripped

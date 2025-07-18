@@ -7,34 +7,62 @@ namespace Cloth
 {
     public class ClothChanger : MonoBehaviour
     {
-
-        public SkinnedMeshRenderer mesh;
+        public List<SkinnedMeshRenderer> meshes;
 
         public Texture2D texture;
         public string shaderIdName = "_EmissionMap";
 
-        private Texture2D _defaultTexture;
+        private List<Texture2D> _defaultTextures = new List<Texture2D>();
 
         private void Awake()
         {
-            
-            _defaultTexture = (Texture2D)mesh.sharedMaterials[0].GetTexture(shaderIdName);
+            _defaultTextures.Clear();
+            foreach (var mesh in meshes)
+            {
+                if (mesh != null && mesh.sharedMaterials.Length > 0)
+                {
+                    _defaultTextures.Add((Texture2D)mesh.sharedMaterials[0].GetTexture(shaderIdName));
+                }
+                else
+                {
+                    _defaultTextures.Add(null);
+                }
+            }
         }
 
         [NaughtyAttributes.Button]
         private void ChangeTexture()
         {
-            mesh.materials[0].SetTexture(shaderIdName, texture);
+            foreach (var mesh in meshes)
+            {
+                if (mesh != null && mesh.materials.Length > 0)
+                {
+                    mesh.materials[0].SetTexture(shaderIdName, texture);
+                }
+            }
         }
 
         public void ChangeTexture(ClothSetup setup)
         {
-            mesh.materials[0].SetTexture(shaderIdName, setup.texture);
+            foreach (var mesh in meshes)
+            {
+                if (mesh != null && mesh.materials.Length > 0)
+                {
+                    mesh.materials[0].SetTexture(shaderIdName, setup.texture);
+                }
+            }
         }
 
         public void ResetTexture()
         {
-            mesh.materials[0].SetTexture(shaderIdName, _defaultTexture);
+            for (int i = 0; i < meshes.Count; i++)
+            {
+                var mesh = meshes[i];
+                if (mesh != null && mesh.materials.Length > 0 && i < _defaultTextures.Count)
+                {
+                    mesh.materials[0].SetTexture(shaderIdName, _defaultTextures[i]);
+                }
+            }
         }
     }
 }
