@@ -11,6 +11,8 @@ public class ProjectileBase : MonoBehaviour
 
     public List<string> tagsToHit;
 
+    private bool _hasHit = false;
+
     private void Awake()
     {
         {
@@ -25,6 +27,7 @@ public class ProjectileBase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (_hasHit) return;
         foreach (var t in tagsToHit)
         {
             if (collision.transform.tag == t)
@@ -39,8 +42,8 @@ public class ProjectileBase : MonoBehaviour
 
                     damageable.Damage(damageAmount, dir);
                 }
+                _hasHit = true;
                 Destroy(gameObject);
-
                 break;
             }
         }

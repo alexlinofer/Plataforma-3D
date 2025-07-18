@@ -17,23 +17,24 @@ namespace Cloth
 
         private void Awake()
         {
+            
             _defaultTexture = (Texture2D)mesh.sharedMaterials[0].GetTexture(shaderIdName);
         }
 
         [NaughtyAttributes.Button]
         private void ChangeTexture()
         {
-            mesh.sharedMaterials[0].SetTexture(shaderIdName, texture);
+            mesh.materials[0].SetTexture(shaderIdName, texture);
         }
 
         public void ChangeTexture(ClothSetup setup)
         {
-            mesh.sharedMaterials[0].SetTexture(shaderIdName, setup.texture);
+            mesh.materials[0].SetTexture(shaderIdName, setup.texture);
         }
 
         public void ResetTexture()
         {
-            mesh.sharedMaterials[0].SetTexture(shaderIdName, _defaultTexture);
+            mesh.materials[0].SetTexture(shaderIdName, _defaultTexture);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using JogoPlataforma3D.Singleton;
 using Cloth;
 
-public class Player : Singleton<Player>//, IDamageable
+public class Player : Singleton<Player>
 {
     public List<Collider> colliders;
     [Header("Configs")]

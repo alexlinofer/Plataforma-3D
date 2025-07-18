@@ -1,7 +1,9 @@
+using Cloth;
+using DG.Tweening;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class HealthBase : MonoBehaviour, IDamageable
 {
@@ -17,6 +19,8 @@ public class HealthBase : MonoBehaviour, IDamageable
     private ParticleSystem _particleSystem;
 
     public List<UIFillUpdate> uiGunUpdater;
+
+    public float damageMultiply = 1f;
 
 
     private void Awake()
@@ -59,12 +63,12 @@ public class HealthBase : MonoBehaviour, IDamageable
     [NaughtyAttributes.Button]
     public void Damage()
     {
-        Damage(5);
+        Damage(4);
     }
 
     public void Damage(float f)
     {
-       _currentLife -= f;
+        _currentLife -= f * damageMultiply;
 
         if(_currentLife <= 0)
         {
@@ -84,7 +88,7 @@ public class HealthBase : MonoBehaviour, IDamageable
 
         transform.position -= transform.forward;
 
-        _currentLife -= damage;
+        _currentLife -= damage * damageMultiply;
 
         if (_currentLife <= 0)
         {
@@ -92,6 +96,7 @@ public class HealthBase : MonoBehaviour, IDamageable
         }
         UpdateUI();
         OnDamage?.Invoke(this);
+        Debug.Log("damage");
     }
 
     private void UpdateUI()
@@ -100,5 +105,17 @@ public class HealthBase : MonoBehaviour, IDamageable
         {
             uiGunUpdater.ForEach(i => i.UpdateValue((float)_currentLife / startLife));
         }
+    }
+
+    public void ChangeDamageMultiply(float damageMultiply, float duration)
+    {
+        StartCoroutine(ChangeDamageMultiplyCoroutine(damageMultiply, duration));
+    }
+
+    IEnumerator ChangeDamageMultiplyCoroutine(float damageMultiply, float duration)
+    {
+        this.damageMultiply = damageMultiply;
+        yield return new WaitForSeconds(duration);
+        this.damageMultiply = 1f;
     }
 }

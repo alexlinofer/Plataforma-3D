@@ -16,6 +16,7 @@ namespace Itens
     public class CollectableManager : Singleton<CollectableManager>
     {
         public List<ItemSetup> itemSetups;
+        public Texture2D baseTexture;
 
         private void Start()
         {
