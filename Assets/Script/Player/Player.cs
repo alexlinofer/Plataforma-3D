@@ -33,6 +33,8 @@ public class Player : Singleton<Player>
     public UIFillUpdate uiGunUpdater;
     public bool alive = true;
 
+    private bool _jumping = false;
+
     [Space]
     [SerializeField] private ClothChanger _clothChanger;
 
@@ -81,16 +83,10 @@ public class Player : Singleton<Player>
         EffectsManager.Instance.ChangeVignette();
         ShakeCamera.Instance.Shake();
     }
-
-    public void Damage(float damage, Vector3 dir)
-    {
-        //Damage(damage);
-    }
 #endregion
 
     private void Update()
     {
-
         if(!alive) return;
 
         transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);
@@ -100,10 +96,23 @@ public class Player : Singleton<Player>
 
         if (characterController.isGrounded)
         {
+            if (_jumping)
+            {
+                _jumping = false;
+                animator.SetTrigger("Land");
+            }
+
             vSpeed = 0f;
             if (Input.GetKeyDown(jumpKeyCode))
             {
                 vSpeed = jumpSpeed;
+
+                if (!_jumping)
+                {
+                    _jumping = true;
+                    animator.SetTrigger("Jump");
+                }
+                
             }
         }
 
