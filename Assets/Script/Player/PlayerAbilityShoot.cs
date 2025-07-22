@@ -13,6 +13,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
     private int _gunIndex;
 
     [SerializeField] private List<GunBase> _gunPrefabs;
+    public FlashColor flashColor;
 
     protected override void Init()
     {
@@ -64,6 +65,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
     private void StartShoot()
     {
         if(player.alive) _currentGun.StartShoot();
+        flashColor?.Flash();
     }
 
     private void CancelShoot()
