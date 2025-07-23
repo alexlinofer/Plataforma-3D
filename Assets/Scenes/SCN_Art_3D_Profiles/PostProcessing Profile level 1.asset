@@ -35,8 +35,8 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   color:
-    overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    overrideState: 1
+    value: {r: 0.745283, g: 0.2988163, b: 0.2988163, a: 1}
   fastMode:
     overrideState: 0
     value: 0
@@ -1368,7 +1368,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: PostProcessing Profile
+  m_Name: PostProcessing Profile level 1
   m_EditorClassIdentifier: 
   settings:
   - {fileID: -4934052684471188594}
