@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using DG.Tweening;
 using Animation;
+using UnityEngine.Events;
 
 
 namespace Enemy
@@ -27,6 +28,9 @@ namespace Enemy
         public float startAnimationDuration = .2f;
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
+
+        [Header("Events")]
+        public UnityEvent OnKillEvent;
 
         public bool isAlive = true;
 
@@ -64,6 +68,8 @@ namespace Enemy
             PlayAnimationByTrigger(AnimationType.DEATH);
             Destroy(gameObject, 3f);
             isAlive = false;
+
+            OnKillEvent?.Invoke();
         }
 
         public void OnDamage(float f)
