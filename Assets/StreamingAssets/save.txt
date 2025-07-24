@@ -1,4 +1,6 @@
 {
     "lastLevel": 1,
+    "coins": 4,
+    "lifePack": 1,
     "playerName": "Rafael"
 }
