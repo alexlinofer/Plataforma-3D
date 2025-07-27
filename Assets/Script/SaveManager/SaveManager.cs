@@ -3,18 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using JogoPlataforma3D.Singleton;
+using System;
 
 public class SaveManager : Singleton<SaveManager>
 {
-    private SaveSetup _saveSetup;
+    [SerializeField] private SaveSetup _saveSetup;
+
+
+    // Use essa versão quando for um jogo de verdade
+    //string path = Application.persistentDataPath + "/save.txt";
+
+    // Estou usando essa versão para testes para manter o arquivo na pasta do projeto
+    private string _path = Application.streamingAssetsPath + "/save.txt";
+
+    public int lastLevel;
+    public Action<SaveSetup> FileLoaded;
+    
+    public SaveSetup Setup
+    {
+               get { return _saveSetup; }
+    }
 
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void CreateNewSave()
+    {
         _saveSetup = new SaveSetup();
-        _saveSetup.lastLevel = 2;
-        _saveSetup.playerName = "Rafael";
+        _saveSetup.lastLevel = 0;
+        _saveSetup.cloth = "BASE";
+    }
+
+
+    private void Start()
+    {
+        Invoke(nameof(Load), .1f);
     }
 
     #region SAVE
@@ -33,16 +59,16 @@ public class SaveManager : Singleton<SaveManager>
         Save();
     }
 
-    public void SaveName(string text)
+    public void SaveCloth()
     {
-        _saveSetup.playerName = text;
+        _saveSetup.cloth = Player.Instance.ActiveClothType.ToString();
         Save();
     }
 
     public void SaveLastLevel(int level)
     {
         _saveSetup.lastLevel = level;
-        SaveItens();
+        //SaveItens();
         Save();
     }
 
@@ -50,26 +76,28 @@ public class SaveManager : Singleton<SaveManager>
 
     private void SaveFile(string json)
     {
-        // Use essa versão quando for um jogo de verdade
-        //string path = Application.persistentDataPath + "/save.txt";
-
-        // Estou usando essa versão para testes para manter o arquivo na pasta do projeto
-        string path = Application.streamingAssetsPath + "/save.txt";
-
-        Debug.Log(path);
-        File.WriteAllText(path, json);
+        Debug.Log(_path);
+        File.WriteAllText(_path, json);
     }
 
-    [NaughtyAttributes.Button("Save Level 1")]
-    private void SaveLevelOne()
+    [NaughtyAttributes.Button("Load")]
+    private void Load()
     {
-        SaveLastLevel(1);
-    }
+        string fileLoaded = "";
 
-    [NaughtyAttributes.Button("Save Level 5")]
-    private void SaveLevelFive()
-    {
-        SaveLastLevel(5);
+        if (File.Exists(_path))
+        {
+            fileLoaded = File.ReadAllText(_path);
+            _saveSetup = JsonUtility.FromJson<SaveSetup>(fileLoaded);
+
+            lastLevel = _saveSetup.lastLevel;
+        }
+        else
+        {
+            CreateNewSave();
+            Save();
+        }
+        FileLoaded?.Invoke(_saveSetup);
     }
 }
 
@@ -79,7 +107,5 @@ public class SaveSetup
     public int lastLevel;
     public int coins;
     public int lifePack;
-
-
-    public string playerName;
+    public string cloth;
 }

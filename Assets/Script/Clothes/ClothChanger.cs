@@ -42,8 +42,11 @@ namespace Cloth
             }
         }
 
+        public ClothSetup CurrentClothSetup { get; private set; }
+
         public void ChangeTexture(ClothSetup setup)
         {
+            CurrentClothSetup = setup;
             foreach (var mesh in meshes)
             {
                 if (mesh != null && mesh.materials.Length > 0)
@@ -55,6 +58,7 @@ namespace Cloth
 
         public void ResetTexture()
         {
+            CurrentClothSetup = null;
             for (int i = 0; i < meshes.Count; i++)
             {
                 var mesh = meshes[i];

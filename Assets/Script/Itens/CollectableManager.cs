@@ -21,6 +21,14 @@ namespace Itens
         private void Start()
         {
             Reset();
+            LoadItensFromSave();
+        }
+
+        private void LoadItensFromSave()
+        {
+            AddByType(ItemType.COIN, SaveManager.Instance.Setup.coins);
+            AddByType(ItemType.LIFE_PACK, SaveManager.Instance.Setup.lifePack);
+            
         }
 
         private void Reset()

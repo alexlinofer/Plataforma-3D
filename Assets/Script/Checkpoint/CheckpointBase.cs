@@ -12,6 +12,8 @@ public class CheckpointBase : MonoBehaviour
     public Image image;
     public TextMeshProUGUI text;
     public float checkpointBrightness = 2f;
+    public Animator uiAnimator;
+    public string animatorTrigger = "NextLevel";
 
     private bool checkpointActivated = false;
     private string checkpointKey = "CheckpointKey";
@@ -28,6 +30,10 @@ public class CheckpointBase : MonoBehaviour
     {
         TurnItOn();
         SaveCheckpoint();
+        if (uiAnimator != null)
+        {
+            AnimateUI();
+        }
     }
 
     [NaughtyAttributes.Button]
@@ -67,6 +73,12 @@ public class CheckpointBase : MonoBehaviour
         image.DOFade(1f, 2f);
         text.DOFade(1f, 2f);
         StartCoroutine(CheckpointOffText());
+    }
+
+    private void AnimateUI()
+    {
+        // O objetivo dessa função é vincular a animação de carregar a próxima fase, caso seja o último checkpoint da fase
+        uiAnimator.SetTrigger(animatorTrigger);
     }
 
     IEnumerator CheckpointOffText()

@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clothType: 0
-  duration: 5
+  duration: 100
   compareTag: Player
-  targetSpeed: 40
+  targetSpeed: 30
 --- !u!135 &1681308171374428915
 SphereCollider:
   m_ObjectHideFlags: 0

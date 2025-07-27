@@ -7,6 +7,7 @@ using DG.Tweening;
 using UnityEditor;
 using Animation;
 using TMPro;
+using UnityEngine.Events;
 
 namespace Boss
 {
@@ -37,6 +38,9 @@ namespace Boss
 
         public float speed = 5f;
         public List<Transform> waypoints;
+
+        [Header("Events")]
+        public UnityEvent OnKillEvent;
 
         public HealthBase healthBase;
 
@@ -76,6 +80,7 @@ namespace Boss
         private void OnBossKill(HealthBase h)
         {
             SwitchState(BossAction.DEATH);
+            OnKillEvent?.Invoke();
         }
 
         private void OnCollisionEnter(Collision collision)

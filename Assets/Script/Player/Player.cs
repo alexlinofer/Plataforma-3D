@@ -45,13 +45,38 @@ public class Player : Singleton<Player>
         if(healthBase == null) healthBase = GetComponent<HealthBase>();
     }
 
-    override protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
         OnValidate();
 
         healthBase.OnDamage += Damage;
         healthBase.OnKill += OnKill;
+
+        StartCoroutine(ApplySavedClothWithDelay());
+    }
+
+    private IEnumerator ApplySavedClothWithDelay()
+    {
+        yield return new WaitForSeconds(0.05f); // Ajuste conforme necessário
+
+        string clothString = SaveManager.Instance.Setup.cloth;
+        if (!string.IsNullOrEmpty(clothString) && System.Enum.TryParse<ClothType>(clothString, out var clothType) && clothType != ClothType.BASE)
+        {
+            ClothSetup setup = ClothManager.Instance.GetSetupByType(clothType);
+            if (setup != null)
+            {
+                ChangeTexture(setup, 100f); // Ajuste a duração se quiser
+            }
+            else
+            {
+                _clothChanger.ResetTexture();
+            }
+        }
+        else
+        {
+            _clothChanger.ResetTexture();
+        }
     }
 
     private void OnKill(HealthBase h)
@@ -172,4 +197,33 @@ public class Player : Singleton<Player>
         _clothChanger.ResetTexture();
     }
 
+    public void ApplyClothByType(ClothType clothType, float duration = 5f)
+    {
+        var setup = ClothManager.Instance.GetSetupByType(clothType);
+        if (setup != null)
+        {
+            ChangeTexture(setup, duration);
+        }
+    }
+
+    public Cloth.ClothType ActiveClothType
+    {
+        get
+        {
+            // Supondo que ClothChanger tenha uma referência ao ClothSetup atual
+            // Adapte conforme sua lógica de troca de roupa
+            return _clothChanger.CurrentClothSetup != null ? _clothChanger.CurrentClothSetup.clothType : Cloth.ClothType.BASE;
+        }
+    }
+
+    public void RestoreClothFromSave()
+    {
+        if (!string.IsNullOrEmpty(SaveManager.Instance.Setup.cloth))
+        {
+            if (System.Enum.TryParse<ClothType>(SaveManager.Instance.Setup.cloth, out var clothType))
+            {
+                ApplyClothByType(clothType, 5f);
+            }
+        }
+    }
 }

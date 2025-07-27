@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clothType: 1
-  duration: 10
+  duration: 100
   compareTag: Player
   damageMultiply: 0.5
 --- !u!135 &7636651547304453283

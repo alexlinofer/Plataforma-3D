@@ -1334,10 +1334,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1330112200}
-  key: 3
+  key: 2
   image: {fileID: 2109799418}
   text: {fileID: 134317692}
   checkpointBrightness: 2
+  uiAnimator: {fileID: 0}
+  animatorTrigger: NextLevel
 --- !u!4 &134598301
 Transform:
   m_ObjectHideFlags: 0
@@ -1708,10 +1710,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 1326937835}
-  key: 2
+  key: 1
   image: {fileID: 2109799418}
   text: {fileID: 134317692}
   checkpointBrightness: 2
+  uiAnimator: {fileID: 0}
+  animatorTrigger: NextLevel
 --- !u!4 &179303688
 Transform:
   m_ObjectHideFlags: 0
@@ -7910,6 +7914,8 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: fd77fee4661ad0a4b989c9cc8456004b, type: 3}
   - clothType: 2
     texture: {fileID: 2800000, guid: 759aa763801ca794497af20c9f785a50, type: 3}
+  - clothType: 3
+    texture: {fileID: 2800000, guid: 8d0f7b33a4f3bf5459574270675b2718, type: 3}
 --- !u!4 &504134583
 Transform:
   m_ObjectHideFlags: 0
@@ -17375,7 +17381,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You win this level! Congratulations!
+  m_text: 'You win this level! Congratulations!
+
+    Wait while next level is loading...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17402,7 +17410,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.05
+  m_fontSize: 29.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -18784,6 +18792,8 @@ MonoBehaviour:
   image: {fileID: 1557150139}
   text: {fileID: 1077397815}
   checkpointBrightness: 2
+  uiAnimator: {fileID: 1557150141}
+  animatorTrigger: NextLevel
 --- !u!114 &1282849598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21476,6 +21486,8 @@ GameObject:
   - component: {fileID: 1557150138}
   - component: {fileID: 1557150140}
   - component: {fileID: 1557150139}
+  - component: {fileID: 1557150142}
+  - component: {fileID: 1557150141}
   m_Layer: 5
   m_Name: Image (2)
   m_TagString: Untagged
@@ -21541,6 +21553,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557150137}
   m_CullTransparentMesh: 1
+--- !u!95 &1557150141
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557150137}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81a4d341dfabc8040b551db2999cae5d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1557150142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557150137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d15a2c58d023d4fa821972f003dda1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1562229417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22318,7 +22363,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastCheckpointKey: 0
   checkpoints:
-  - {fileID: 0}
   - {fileID: 179303687}
   - {fileID: 134598300}
 --- !u!4 &1695604148

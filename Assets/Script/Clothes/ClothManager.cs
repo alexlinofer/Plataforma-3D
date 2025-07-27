@@ -10,7 +10,8 @@ namespace Cloth
     {
         SPEED,
         STRONG,
-        NEGATIVE
+        NEGATIVE,
+        BASE
 
     }
 

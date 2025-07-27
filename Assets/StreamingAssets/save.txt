@@ -1,6 +1,6 @@
 {
-    "lastLevel": 1,
-    "coins": 4,
+    "lastLevel": 3,
+    "coins": 6,
     "lifePack": 1,
-    "playerName": "Rafael"
+    "cloth": "BASE"
 }
