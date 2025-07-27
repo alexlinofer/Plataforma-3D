@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
 using JogoPlataforma3D.Singleton;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class SaveManager : Singleton<SaveManager>
 {
@@ -44,12 +45,19 @@ public class SaveManager : Singleton<SaveManager>
     }
 
     #region SAVE
-    [NaughtyAttributes.Button("Save")]
     private void Save()
     {
         string setupToJson = JsonUtility.ToJson(_saveSetup, true);
         SaveFile(setupToJson);
         Debug.Log(setupToJson);
+    }
+
+    [NaughtyAttributes.Button("Test Save")] 
+    private void TestSave()
+    {
+        SaveItens();
+        SaveCloth();
+        SaveLastLevel(_saveSetup.lastLevel);
     }
 
     public void SaveItens()
@@ -80,7 +88,7 @@ public class SaveManager : Singleton<SaveManager>
         File.WriteAllText(_path, json);
     }
 
-    [NaughtyAttributes.Button("Load")]
+    [NaughtyAttributes.Button("Test Load")]
     private void Load()
     {
         string fileLoaded = "";
