@@ -1,6 +1,0 @@
-{
-    "lastLevel": 3,
-    "coins": 6,
-    "lifePack": 1,
-    "cloth": "BASE"
-}
