@@ -18,6 +18,10 @@ public class LoadSceneHelper : MonoBehaviour
         {
             LoadLevel(1);
         }
+        else if (lastSavedLevel > 3)
+        {
+            LoadLevel(3);
+        }
         else
         {
             LoadLevel(lastSavedLevel);
@@ -26,7 +30,15 @@ public class LoadSceneHelper : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        int lastLevel = SaveManager.Instance.Setup.lastLevel;
+        if (lastLevel > 3)
+        {
+            LoadLevel(0);
+            return;
+        }
+
         StartCoroutine(LoadLevelCoRoutine());
+
     }
 
     IEnumerator LoadLevelCoRoutine()

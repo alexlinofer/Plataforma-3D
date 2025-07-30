@@ -4974,11 +4974,15 @@ MonoBehaviour:
   particleSystem: {fileID: 5357870327740822089}
   startLife: 5
   lookAtPlayer: 1
+  damageSFX: 8
   _currentLife: 0
   _animationBase: {fileID: 7595917792594755009}
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
+  OnKillEvent:
+    m_PersistentCalls:
+      m_Calls: []
   isAlive: 1
 --- !u!65 &1462872842363117691
 BoxCollider:

@@ -132,3 +132,4 @@ MonoBehaviour:
   positionToShoot: {fileID: 5786991360592006229}
   timeBetweenShoot: 2
   speed: 50
+  shootSFX: 6

@@ -22,6 +22,8 @@ public class HealthBase : MonoBehaviour, IDamageable
 
     public float damageMultiply = 1f;
 
+    public SFXType damageSFX;
+
 
     private void Awake()
     {
@@ -69,8 +71,9 @@ public class HealthBase : MonoBehaviour, IDamageable
     public void Damage(float f)
     {
         _currentLife -= f * damageMultiply;
+        PlaySFX();
 
-        if(_currentLife <= 0)
+        if (_currentLife <= 0)
         {
             Kill();
         }
@@ -89,6 +92,7 @@ public class HealthBase : MonoBehaviour, IDamageable
         transform.position -= transform.forward;
 
         _currentLife -= damage * damageMultiply;
+        PlaySFX();
 
         if (_currentLife <= 0)
         {
@@ -97,6 +101,11 @@ public class HealthBase : MonoBehaviour, IDamageable
         UpdateUI();
         OnDamage?.Invoke(this);
         Debug.Log("damage");
+    }
+
+    private void PlaySFX()
+    {
+        SFXPool.Instance.Play(damageSFX);
     }
 
     private void UpdateUI()

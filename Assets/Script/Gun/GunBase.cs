@@ -12,6 +12,8 @@ public class GunBase : MonoBehaviour
 
     private Coroutine _currentCoroutine;
 
+    public SFXType shootSFX;
+
     protected virtual IEnumerator ShootCoroutine()
     {
         while (true)
@@ -27,6 +29,7 @@ public class GunBase : MonoBehaviour
         projectile.transform.position = positionToShoot.position;
         projectile.transform.rotation = positionToShoot.rotation;
         projectile.speed = speed;
+        PlaySFX();
     }
 
     public void StartShoot()
@@ -39,5 +42,10 @@ public class GunBase : MonoBehaviour
     {
         if (_currentCoroutine != null)
             StopCoroutine(_currentCoroutine);
+    }
+
+    private void PlaySFX()
+    {
+        SFXPool.Instance.Play(shootSFX);
     }
 }

@@ -5742,6 +5742,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  OnKillEvent:
+    m_PersistentCalls:
+      m_Calls: []
   healthBase: {fileID: 7822582514691861303}
 --- !u!114 &7822582514691861303
 MonoBehaviour:
@@ -5760,6 +5763,7 @@ MonoBehaviour:
   _currentLife: 0
   uiGunUpdater: []
   damageMultiply: 1
+  damageSFX: 8
 --- !u!114 &3702190192417711653
 MonoBehaviour:
   m_ObjectHideFlags: 0

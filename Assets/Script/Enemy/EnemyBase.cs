@@ -18,6 +18,7 @@ namespace Enemy
         public ParticleSystem particleSystem;
         public float startLife = 10f;
         public bool lookAtPlayer = false;
+        public SFXType damageSFX;
 
         [SerializeField] private float _currentLife;
 
@@ -34,14 +35,11 @@ namespace Enemy
 
         public bool isAlive = true;
 
-        private void Awake()
-        {
-            Init();
-        }
 
         public virtual void Start ()
         {
             _player = GameObject.FindObjectOfType<Player>();
+            StartCoroutine(WaitForInit());
         }
 
         protected void ResetLife()
@@ -55,6 +53,12 @@ namespace Enemy
 
             if(startWithBornAnimation)
                 BornAnimation();
+        }
+
+        IEnumerator WaitForInit()
+        {
+            yield return new WaitForSeconds(0.2f);
+            Init();
         }
 
         protected virtual void Kill()
@@ -80,11 +84,17 @@ namespace Enemy
             transform.position -= transform.forward;
 
             _currentLife -= f;
+            PlaySFX();
 
             if(_currentLife <= 0)
             {
                 Kill();
             }
+        }
+
+        private void PlaySFX()
+        {
+            SFXPool.Instance.Play(damageSFX);
         }
 
         #region ANIMATION

@@ -18,6 +18,7 @@ public class Player : Singleton<Player>
     public float gravity = -9.8f;
     public float jumpSpeed = 15f;
     public KeyCode jumpKeyCode = KeyCode.Space;
+    public Transform startPosition;
 
     [Header("Run Setup")]
     public KeyCode keyRun = KeyCode.LeftShift;
@@ -32,6 +33,8 @@ public class Player : Singleton<Player>
     public HealthBase healthBase;
     public UIFillUpdate uiGunUpdater;
     public bool alive = true;
+
+    public SFXType jumpingSFX;
 
     private bool _jumping = false;
 
@@ -136,6 +139,7 @@ public class Player : Singleton<Player>
                 {
                     _jumping = true;
                     animator.SetTrigger("Jump");
+                    PlaySFX();
                 }
                 
             }
@@ -163,12 +167,21 @@ public class Player : Singleton<Player>
         animator.SetBool("Run", inputAxisVertical != 0);
     }
 
+    private void PlaySFX()
+    {
+        SFXPool.Instance.Play(jumpingSFX);
+    }
+
     [NaughtyAttributes.Button]
     public void Respawn()
     {
         if (CheckpointManager.Instance.HasCheckpoint())
         {
             transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
+        }
+        else
+        {
+            transform.position = startPosition.position;
         }
     }
 

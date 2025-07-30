@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141a7233a8f2478439d8ba16756bd1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxType: 3
   clothType: 1
   duration: 100
   compareTag: Player
