@@ -1,0 +1,6 @@
+{
+    "lastLevel": 0,
+    "coins": 0,
+    "lifePack": 0,
+    "cloth": "BASE"
+}

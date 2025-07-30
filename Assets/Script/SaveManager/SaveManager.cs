@@ -10,25 +10,30 @@ public class SaveManager : Singleton<SaveManager>
 {
     [SerializeField] private SaveSetup _saveSetup;
 
-
-    // Use essa versão quando for um jogo de verdade
-    //string path = Application.persistentDataPath + "/save.txt";
-
-    // Estou usando essa versão para testes para manter o arquivo na pasta do projeto
-    private string _path = Application.streamingAssetsPath + "/save.txt";
+    // Agora salva em uma subpasta "Saves" dentro de Application.persistentDataPath
+    private string _saveDirectory;
+    private string _path;
 
     public int lastLevel;
     public Action<SaveSetup> FileLoaded;
     
     public SaveSetup Setup
     {
-               get { return _saveSetup; }
+        get { return _saveSetup; }
     }
 
     protected override void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
+
+        // Define o diretório de saves e cria se não existir
+        _saveDirectory = Path.Combine(Application.persistentDataPath, "Saves");
+        if (!Directory.Exists(_saveDirectory))
+        {
+            Directory.CreateDirectory(_saveDirectory);
+        }
+        _path = Path.Combine(_saveDirectory, "save.txt");
     }
 
     private void CreateNewSave()
@@ -37,7 +42,6 @@ public class SaveManager : Singleton<SaveManager>
         _saveSetup.lastLevel = 0;
         _saveSetup.cloth = "BASE";
     }
-
 
     private void Start()
     {
@@ -76,7 +80,6 @@ public class SaveManager : Singleton<SaveManager>
     public void SaveLastLevel(int level)
     {
         _saveSetup.lastLevel = level;
-        //SaveItens();
         Save();
     }
 
